@@ -9,9 +9,16 @@ This repo sets up a [NextCloud](https://github.com/linuxserver/docker-nextcloud)
 All of the containers used are from [linuxserver.io](linuxserver.io). Credits go to them.
 
 
+## Setup
+
+Before you try to quickly pull the repo and instantly deploy, you should know that there are a few files that you need to add as configuration, even if there are example configuration files.
+
+- The DDClient configuration file ``volumes/ddclient/ddclient.conf``
+- The letsencrypt nginx config file ``volumes/letsencrypt/``
+
 ## Parameters
 
-All parameters for this setup should be put in a .env file. [An example file is provided](https://github.com/santiago-espinosa/INSERTLINKHERE) for your reference.
+All parameters for this setup should be put in a .env file. [An example file is provided](hhttps://github.com/santiago-espinosa/nextcloud_docker-ce/blob/v0.1/example_env.NOTenv) for your reference.
 
 ```
 #DDClient variables
