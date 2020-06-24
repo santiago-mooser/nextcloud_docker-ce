@@ -1,0 +1,14 @@
+#DDClient variables
+ddc_timezone=Asia/Hong_Kong
+
+#MariaDB variables
+mdb_name=nextcloud_db
+mdb_root_password=ChaNgeMe!!4312
+mdb_username=nextcloud
+mdb_password=¡cHanGeMetO0!
+
+#Letsencrypt variables
+le_timezone=Asia/Hong_Kong
+le_domain_name=example.com
+le_subdomains=nextcloud
+le_email=myemail@fake.example
