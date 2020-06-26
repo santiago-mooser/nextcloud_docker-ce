@@ -1,0 +1,49 @@
+# make sure that your dns has a cname set for nextcloud
+# assuming this container is called "letsencrypt", edit your nextcloud container's config
+# located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
+#  'trusted_proxies' => ['letsencrypt'],
+#  'overwrite.cli.url' => 'https://nextcloud.your-domain.com/',
+#  'overwritehost' => 'nextcloud.your-domain.com',
+#  'overwriteprotocol' => 'https',
+#
+# Also don't forget to add your domain name to the trusted domains array. It should look somewhat like this:
+#  array (
+#    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
+#    1 => 'nextcloud.your-domain.com',
+#  ),
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name nextcloud.*;
+
+    include /config/nginx/ssl.conf;
+    
+    ###Diffie–Hellman key exchange ###
+	ssl_dhparam /config/nginx/dhparams.pem;
+	
+	###SSL Ciphers
+	ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+	
+    client_max_body_size 0;
+
+	###Extra Settings###
+	ssl_prefer_server_ciphers on;
+	ssl_session_cache shared:SSL:10m;
+
+    ### Add HTTP Strict Transport Security ###
+	add_header Strict-Transport-Security "max-age=63072000; includeSubdomains";
+	add_header Front-End-Https on;
+
+    location / {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app nextcloud;
+        set $upstream_port 443;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_max_temp_file_size 2048m;
+    }
+}

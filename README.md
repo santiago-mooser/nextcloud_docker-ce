@@ -6,8 +6,7 @@
 
 This repo sets up a [NextCloud](https://github.com/linuxserver/docker-nextcloud) instance automatically with [DDClient](https://github.com/linuxserver/docker-ddclient) (for DDNS), [Let's Encrypt nginx](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md) (with auto-renewing certs) and [MariaDB containers](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md).
 
-All of the containers used are from [linuxserver.io](linuxserver.io). Credits go to them.
-
+All of the containers used are from [linuxserver.io](linuxserver.io). Credits go to them, Let's Encrypt, nginx, Nextcloud, DDClient and the MAriaDB Organisation.
 
 ## Setup
 
@@ -29,6 +28,7 @@ mdb_name=nextcloud_db
 mdb_root_password=ChaNgeMe!!4312
 mdb_username=nextcloud
 mdb_password=¡cHanGeMetO0!
+mdb_timezone=Asia/Hong_Kong
 
 #Letsencrypt variables
 le_timezone=Asia/Hong_Kong
@@ -37,20 +37,33 @@ le_subdomains=nextcloud
 le_email=myemail@fake.example
 ```
 
+## Steps to follow to 
+
+
+**Easy tutorial to follow to fully configure the setup**
+
+[SpaceInvader's nextcloud setup on unraid](https://www.youtube.com/watch?v=fUPmVZ9CgtM). The OS is specialized, but the setup is pretty much the same.
+
+### 1: Make sure the database is working properly
+
+run ``docker logs $(docker ps | grep mariadb | awk '{print $1}') | grep 'Setup'`` (This can only be run on bash, not sh due to the bash-ism of the command) and make sure the output in the last line contains ``Database Setup Completed``.
+
+
 ## Resources used
+
 
 **Refering to config files:**
 
-DDClient config file: []()
+DDClient config file: [Guide on setting up DDClient](https://help.dyn.com/ddclient/) and [NameCheap's DDClient setup](https://www.namecheap.com/support/knowledgebase/article.aspx/583/11/how-do-i-configure-ddclient)
 
-Let's Encrypt config file: []()
+Let's Encrypt's nginx's config file for nextcloud: [Official nextcloud documentation](https://docs.nextcloud.com/server/16/admin_manual/installation/nginx.html) and an [example nextcloud.conf](https://gist.github.com/xxblx/2e213aba16c66a9ea591e04d057d61c3) (credits to [xxblx](https://gist.github.com/xxblx))
 
 **Refering to docker compose:**
 
-DDClient env variables: 
+DDClient env variables: [linuxserver.io's github documentation for DDClient container](https://github.com/linuxserver/docker-ddclient)
 
-MariaDB env variables: [linuxserver.io's github documentation](https://github.com/linuxserver/docker-mariadb)
+MariaDB env variables: [linuxserver.io's github documentation for MariaDB comtainer](https://github.com/linuxserver/docker-mariadb)
 
-For Let's Encrypt env variables: [linuxserver.io's github documentation](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md)
+For Let's Encrypt env variables: [linuxserver.io's github documentation for Let's Encrypt's nginx container](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md)
 
 For Nextcloud env variables: [Nextcloud commandline installation](https://docs.nextcloud.com/server/stable/admin_manual/installation/command_line_installation.html)
