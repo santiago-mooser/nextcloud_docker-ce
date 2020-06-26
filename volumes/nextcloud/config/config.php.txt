@@ -1,6 +1,45 @@
+# make sure that your dns has a cname set for nextcloud
+# assuming this container is called "letsencrypt", edit your nextcloud container's config
+# located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
+#  'trusted_proxies' => ['letsencrypt'],
+#  'overwrite.cli.url' => 'https://nextcloud.your-domain.com/',
+#  'overwritehost' => 'nextcloud.your-domain.com',
+#  'overwriteprotocol' => 'https',
+#
 # This is where the config file for nextcloud will be once the nextcloud service is initialized.
 # Don't forget to add your domain name to the trusted domains array. It should look somewhat like this:
 #  array (
 #    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
 #    1 => 'nextcloud.your-domain.com',
 #  ),
+
+# The file looks something like this:
+
+#<?php
+#$CONFIG = array (
+# 'memcache.local' => '\\OC\\Memcache\\APCu',
+# 'datadirectory' => '/data',
+# 'instanceid' => 'xxxxxxxxxxxx',
+# 'passwordsalt' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+# 'secret' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+# 'trusted_domains' => 
+# array (
+# 0 => '192.168.0.1:444',
+# 1 => 'nextcloud.your-domain.com',
+# ),
+# 'overwrite.cli.url' => 'https://nextcloud.your-domain.com',
+# 'overwritehost' => 'nextcloud.your-domain.com',
+# 'overwriteprotocol' => 'https',
+# 'dbtype' => 'mysql',
+# 'version' => '11.0.1.2',
+# 'dbname' => 'nextcloud',
+# 'dbhost' => '192.168.0.1:3306',
+# 'dbport' => '',
+# 'dbtableprefix' => 'oc_',
+# 'dbuser' => 'oc_CHBMB1',
+# 'dbpassword' => 'xxxxxxxxxxxxxxxxxxxx',
+# 'logtimezone' => 'UTC',
+# 'installed' => true,
+# );
+ 
+# The file will be automatically populated, so you only need to add your own domain to the trusted domain array and 
