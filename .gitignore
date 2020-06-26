@@ -1,2 +1,2 @@
 .env
-volumes/ddclient/ddclient.conf
+*.conf
