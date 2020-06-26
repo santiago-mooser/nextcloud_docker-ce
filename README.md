@@ -4,9 +4,7 @@
 
 [![DDClient](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/ddclient-logo.png)](https://github.com/ddclient/ddclient) [![Let's Encrypt](https://letsencrypt.org/images/letsencrypt-logo-horizontal.svg)](https://letsencrypt.org/)   [![NextCloud](https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png)](https://nextcloud.com) [![MariaDB](https://mariadb.org/wp-content/uploads/2019/02/cropped-mariadb_org_rgb_r_512-1-180x180.png)](https://mariadb.org/) 
 
-This repo sets up a [NextCloud](https://github.com/linuxserver/docker-nextcloud) instance automatically with [DDClient](https://github.com/linuxserver/docker-ddclient) (for DDNS), [Let's Encrypt nginx](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md) (with auto-renewing certs) and [MariaDB containers](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md).
-
-All of the containers used are from [linuxserver.io](https://fleet.linuxserver.io). Credits go to them, [Let's Encrypt](https://letsencrypt.org/), [nginx](https://www.nginx.com/), [Nextcloud](https://nextcloud.com/), [DDClient](https://github.com/ddclient/ddclient) and the [MariaDB Organisation](https://mariadb.org/).
+This repo sets up a [NextCloud](https://github.com/linuxserver/docker-nextcloud) instance automatically with [DDClient](https://github.com/linuxserver/docker-ddclient) (for DDNS), [Let's Encrypt nginx](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md) (with auto-renewing certs) and [MariaDB containers](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md) on RHEL/CentOS or Debian/Ubuntu servers.
 
 ## Setup
 
@@ -17,9 +15,9 @@ Before you try to quickly pull the repo and instantly deploy, you should know th
 
 # Notice
 
-This repo is designed to be used with the help of [the nextcloud_docker-ce_ansible repo](https://github.com/santiago-espinosa), which will pull this repo and setup some defaults. 
+This repo is designed to be used with the help of [the nextcloud_ansible repo](https://github.com/santiago-espinosa/nextcloud_ansible.git), which will pull this repo and setup some defaults. 
 
-The [the nextcloud_docker-ce_ansible repo](https://github.com/santiago-espinosa) will **automatically populate**:
+The [the nextcloud_ansible repo](https://github.com/santiago-espinosa/nextcloud_ansible.git) will **automatically populate**:
 - Nginx's **nextcloud.subdomain.conf** file for nextcloud with a modern setup from [Mozilla's SSL configuration generator](https://ssl-config.mozilla.org/#server=nginx&version=1.17.7&config=modern&openssl=1.1.1d&guideline=5.4).
 - The **.env** file needed for the correct setup of the docker-ce containers.
 - The **ddclient.conf** file based on ***your*** defaults.
@@ -33,10 +31,11 @@ It will also:
 [SpaceInvader One's Nextcloud on unraid](https://www.youtube.com/watch?v=fUPmVZ9CgtM) has a similar setup, but this is done automagically with the help of [Ansible](https://www.ansible.com/).
 
 
-## Parameters
+# Requirenments
 
-All parameters for this setup should be put in a .env file. [An example file is provided](hhttps://github.com/santiago-espinosa/nextcloud_docker-ce/blob/v0.1/example_env.NOTenv) for your reference. **However**, this can automatically be done by [the nextcloud_docker-ce_ansible repo](https://github.com/santiago-espinosa).
+All parameters for this setup should be put in a .env file. [An example file is provided](hhttps://github.com/santiago-espinosa/nextcloud_docker-ce/blob/v0.1/example_env.NOTenv) for your reference. **However, this can automatically be done by [the nextcloud_ansible repo](https://github.com/santiago-espinosa/nextcloud_ansible.git)**.
 
+### Variables
 ```
 #DDClient variables
 ddc_timezone=Asia/Hong_Kong
@@ -96,3 +95,19 @@ MariaDB env variables: [linuxserver.io's github documentation for MariaDB comtai
 For Let's Encrypt env variables: [linuxserver.io's github documentation for Let's Encrypt's nginx container](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md)
 
 For Nextcloud env variables: [Nextcloud commandline installation](https://docs.nextcloud.com/server/stable/admin_manual/installation/command_line_installation.html)
+
+# Credits
+
+All of the containers used are from [linuxserver.io](https://fleet.linuxserver.io). Credits go to them, [Let's Encrypt](https://letsencrypt.org/), [nginx](https://www.nginx.com/), [Nextcloud](https://nextcloud.com/), [DDClient](https://github.com/ddclient/ddclient) and the [MariaDB Organisation](https://mariadb.org/).
+
+# Dependencies
+
+None.
+
+# License
+
+GNU GPL v3.0
+
+# Author
+
+This repository was created by [Santiago Espinosa](https://keybase.io/santiagoespinosa) in 2020
