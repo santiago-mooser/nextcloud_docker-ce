@@ -6,6 +6,7 @@ mdb_name=nextcloud_db
 mdb_root_password=ChaNgeMe!!4312
 mdb_username=nextcloud
 mdb_password=¡cHanGeMetO0!
+mdb_timezone=Asia/Hong_Kong
 
 #Letsencrypt variables
 le_timezone=Asia/Hong_Kong

@@ -21,10 +21,13 @@ services:
     volumes:
       - ./volumes/db/data:/var/lib/mysql:rw
     environment:
+      - PUID=1000
+      - PGID=1000
       - MYSQL_ROOT_PASSWORD=${mdb_root_password}
-      - MYSQL_PASSWORD=${mdb_password}
+      - TZ=${db_timezone}
       - MYSQL_DATABASE=${mdb_name}
       - MYSQL_USER=${mdb_username}
+      - MYSQL_PASSWORD=${mdb_password}
     ports:
       - 3306:3306
     restart: unless-stopped
