@@ -6,7 +6,7 @@
 
 This repo sets up a [NextCloud](https://github.com/linuxserver/docker-nextcloud) instance automatically with [DDClient](https://github.com/linuxserver/docker-ddclient) (for DDNS), [Let's Encrypt nginx](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md) (with auto-renewing certs) and [MariaDB containers](https://github.com/linuxserver/docker-letsencrypt/blob/master/README.md).
 
-All of the containers used are from [linuxserver.io](linuxserver.io). Credits go to them, Let's Encrypt, nginx, Nextcloud, DDClient and the MAriaDB Organisation.
+All of the containers used are from [linuxserver.io](https://fleet.linuxserver.io). Credits go to them, [Let's Encrypt](https://letsencrypt.org/), [nginx](https://www.nginx.com/), [Nextcloud](https://nextcloud.com/), [DDClient](https://github.com/ddclient/ddclient) and the [MariaDB Organisation](https://mariadb.org/).
 
 ## Setup
 
