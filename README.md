@@ -20,7 +20,7 @@ Before you try to quickly pull the repo and instantly deploy, you should know th
 This repo is designed to be used with the help of [the nextcloud_docker-ce_ansible repo](https://github.com/santiago-espinosa), which will pull this repo and setup some defaults. 
 
 The [the nextcloud_docker-ce_ansible repo](https://github.com/santiago-espinosa) will **automatically populate**:
-- Nginx's **nextcloud.subdomain.conf** file for nextcloud with a modern setup from [Mozilla's SSL configuration generator].(https://ssl-config.mozilla.org/#server=nginx&version=1.17.7&config=modern&openssl=1.1.1d&guideline=5.4).
+- Nginx's **nextcloud.subdomain.conf** file for nextcloud with a modern setup from [Mozilla's SSL configuration generator](https://ssl-config.mozilla.org/#server=nginx&version=1.17.7&config=modern&openssl=1.1.1d&guideline=5.4).
 - The **.env** file needed for the correct setup of the docker-ce containers.
 - The **ddclient.conf** file based on ***your*** defaults.
 
