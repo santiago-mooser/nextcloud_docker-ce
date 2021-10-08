@@ -1,0 +1,88 @@
+---
+version: "3"
+
+services:
+
+  ddclient:
+    image: linuxserver/ddclient
+    container_name: ddclient
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${ddc_timezone}
+    volumes:
+      - ./volumes/ddclient:/config:ro
+    restart: unless-stopped
+
+
+  db:
+    container_name: mariadb
+    image: linuxserver/mariadb
+    restart: always
+    volumes:
+      - ./volumes/db/data:/var/lib/mysql:rw
+      - ./volumes/db/config:/config:rw
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=${mdb_root_password}
+      - TZ=${mdb_timezone}
+      - MYSQL_DATABASE=${mdb_name}
+      - MYSQL_USER=${mdb_username}
+      - MYSQL_PASSWORD=${mdb_password}
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    networks: 
+      - nextcloud_network
+
+
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    environment:
+      - PUID=1000 
+      - PGID=1000
+      - TZ=${le_timezone}
+      - URL=${le_domain_name}
+      - SUBDOMAINS=${le_subdomains}
+      - VALIDATION=http
+      - EMAIL=${le_email}
+      - ONLY_SUBDOMAINS=true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./volumes/letsencrypt:/config:rw
+    restart: unless-stopped
+    networks: 
+      - nextcloud_network
+
+
+  nextcloud:
+    image: linuxserver/nextcloud
+    container_name: nextcloud
+    environment:
+      - PUID=1000 
+      - PGID=1000
+      - database=mysql              #Designated MariaDB entry according to docs. See https://docs.nextcloud.com/server/stable/admin_manual/installation/command_line_installation.html
+      - database-name=${mdb_name}
+      - admin-user=admin
+      - admin-pass=${mdb_root_password}
+      - database-user=${mdb_username}
+      - database-pass=${mdb_password}
+    ports:
+      - 8080:80
+      - 1443:443
+    volumes:
+      - ./volumes/nextcloud/config:/var/www/html:rw
+      - ./volumes/nextcloud/data:/var/www/html/data:rw
+    restart: unless-stopped
+    networks: 
+      - nextcloud_network
+
+  
+networks:
+  nextcloud_network:
+    driver: bridge
+    external: false
